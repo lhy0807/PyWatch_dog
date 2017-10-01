@@ -1,4 +1,6 @@
-import os, time, cv2
+import os
+import cv2
+import time
 import numpy as np
 from grabscreen import grab_screen
 from getkeys import key_check
@@ -25,7 +27,7 @@ key_map = {
 starting_value = 1
 
 while True:
-    file_name = 'G:/pywatchdog/data/{0}.npy'.format(starting_value)
+    file_name = 'D:/PyWatch_dog/data/{0}.npy'.format(starting_value)
     if os.path.isfile(file_name):
         print('File exists, moving along', starting_value)
         starting_value += 1
@@ -50,13 +52,11 @@ def main(file_name, starting_value):
         print(i + 1)
         time.sleep(1)
 
-    last_time = time.time()
     paused = False
     print('STARTING!!!')
     while(True):
         if not paused:
             screen = grab_screen(region = (0, 40, 1024, 768))
-            last_time = time.time()
             # resize to something a bit more acceptable for a CNN
             screen = cv2.resize(screen, (200, 66))
             # run a color convert:
@@ -65,13 +65,6 @@ def main(file_name, starting_value):
             output = keys_to_output(keys)
             training_data.append([screen,output])
 
-##            print('loop took {} seconds'.format(time.time()-last_time))
-            last_time = time.time()
-##            cv2.imshow('window',cv2.resize(screen,(640,360)))
-##            if cv2.waitKey(25) & 0xFF == ord('q'):
-##                cv2.destroyAllWindows()
-##                break
-
             if len(training_data) % 100 == 0:
                 print(len(training_data))
                 if len(training_data) == 500:
@@ -79,7 +72,7 @@ def main(file_name, starting_value):
                     print('SAVED')
                     training_data = []
                     starting_value += 1
-                    file_name = 'G:/pywatchdog/data/{0}.npy'.format(starting_value)
+                    file_name = 'D:/PyWatch_dog/data/{0}.npy'.format(starting_value)
 
         keys = key_check()
         if 'T' in keys:

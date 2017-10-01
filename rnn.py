@@ -29,8 +29,8 @@ def model():
     model.add(LSTM(100,
                  return_sequences=True,
                  stateful=True))
-    model.add(TimeDistributed(Dense(50, activation='relu')))
-    model.add(TimeDistributed(Dense(10, activation='relu')))
+    model.add(Dense(50, activation='relu'))
+    model.add(Dense(10, activation='relu'))
     model.add(Dense(9, activation='softmax'))
 
     model.summary()

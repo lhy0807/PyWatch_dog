@@ -3,7 +3,7 @@ import cv2
 
 frames = input('Input Frame Numbers: ')
 
-data = np.load('10.npy')
+data = np.load('data/1.npy')
 
 for i in range(int(frames)):
 
